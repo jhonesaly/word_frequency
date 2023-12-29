@@ -1,6 +1,6 @@
 # word_frequency
 
-Este projeto em Python realiza a análise de frequência de palavras em um arquivo PDF. Ele extrai o texto do PDF, remove palavras irrelevantes, como stopwords e palavras personalizadas definidas em um arquivo `ignore.txt`, gera um arquivo CSV com a frequência de todas as palavras e cria um gráfico de barras mostrando as 20 palavras mais frequentes.
+Este projeto em Python realiza a análise de frequência de palavras em arquivos PDF. Ele extrai o texto do PDF, remove palavras irrelevantes, como stopwords e palavras personalizadas definidas em um arquivo `ignore.txt`, gera um arquivo CSV com a frequência de todas as palavras e cria um gráfico de barras mostrando as 20 palavras mais frequentes para cada PDF na pasta input.
 
 ## Pré-requisitos
 
@@ -27,7 +27,7 @@ git clone https://github.com/jhonesaly/word_frequency.git
 cd word_frequency
 ```
 
-2. Coloque seu arquivo PDF na pasta `input`.
+2. Coloque seus arquivos PDF na pasta `input`.
 
 3. Edite o arquivo `ignore.txt` para adicionar palavras personalizadas que devem ser ignoradas na análise.
 
@@ -37,7 +37,7 @@ cd word_frequency
 python word_frequency.py
 ```
 
-5. Verifique os resultados na pasta `output`. O arquivo CSV completo estará em `output/output.csv`, e o gráfico será exibido no console.
+1. Verifique os resultados completos na pasta `output` e o gráfico será exibido no console.
 
 ## Estrutura do Projeto
 
