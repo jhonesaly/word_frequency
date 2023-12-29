@@ -19,15 +19,24 @@ def extract_text_from_pdf(pdf_path):
             text += page.extract_text()
     return text
 
-def process_text(text):
+def process_text(text, ignore_words):
     # Tokenize o texto
     words = word_tokenize(text, language='portuguese')
 
-    # Remova as stopwords
+    # Remova as stopwords e palavras ignoradas
     stop_words = set(stopwords.words('portuguese'))
-    filtered_words = [word.lower() for word in words if word.isalpha() and word.lower() not in stop_words]
+    filtered_words = [word.lower() for word in words if word.isalpha() and word.lower() not in stop_words and word.lower() not in ignore_words]
 
     return filtered_words
+
+def load_ignore_words(ignore_file_path):
+    try:
+        with open(ignore_file_path, 'r', encoding='utf-8') as file:
+            ignore_words = [word.strip().lower() for word in file.read().split(',')]
+        return ignore_words
+    except FileNotFoundError:
+        print(f'O arquivo de ignore "{ignore_file_path}" não foi encontrado.')
+        return []
 
 def generate_csv_and_plot(word_list):
     # Gere a análise de frequência
@@ -43,7 +52,7 @@ def generate_csv_and_plot(word_list):
     df = df.head(20)
 
     # Salve o DataFrame em um arquivo CSV
-    df.to_csv('output.csv', index=False)
+    df.to_csv('output/output.csv', index=False)
 
     # Crie um gráfico de barras
     df.plot(kind='bar', x='Palavra', y='Frequência', legend=False)
@@ -56,11 +65,14 @@ if __name__ == '__main__':
     # Substitua 'seu_arquivo.pdf' pelo caminho do seu arquivo PDF
     pdf_path = 'input/origin.pdf'
 
+    # Carregue as palavras a serem ignoradas
+    ignore_words = load_ignore_words('ignore.txt')
+
     # Extraia texto do PDF
     text = extract_text_from_pdf(pdf_path)
 
     # Processamento de texto
-    processed_text = process_text(text)
+    processed_text = process_text(text, ignore_words)
 
     # Gere CSV e gráfico
     generate_csv_and_plot(processed_text)
